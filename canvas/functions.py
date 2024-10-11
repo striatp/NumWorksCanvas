@@ -10,10 +10,19 @@ class MissingArgumentError(Exception):
     """Exception raised for missing or invalid arguments."""
     pass
 
+# Variables used to track the canvas' data
+canvas_initialized = False
+default_bg_color = "white"
+
 # Initialization of the canvas
 class Canvas:
     # Initializing
     def __init__(self, width: int or str, height: int or str, background_color: str or tuple) -> None:
+        # Non-initialized canvas
+        global canvas_initialized
+        if canvas_intialized:
+            raise InitError("The canvas is already initialized.")
+        
         # Validate width
         if isinstance(width, str):
             if width != "full":
@@ -45,3 +54,10 @@ class Canvas:
                 raise ValueError("The 'background_color' tuple must contain three integers between 0 and 255 (e.g., (255, 255, 255)).")
         else:
             raise TypeError("The 'background_color' argument must be a string (color name) or a tuple (RGB values).")
+
+        # Setting attributes
+        self.width = width
+        self.height = height
+        self.background_color = background_color
+
+        # 
