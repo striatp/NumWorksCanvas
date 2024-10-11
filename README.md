@@ -13,12 +13,12 @@ This package allows you to create canvas-based graphics on your NumWorks calcula
 3. **Add the Functions Script:**
    - Create a new script named `functions.py`.
    - Copy and paste the code from the following URL into the script:  
-     [functions.py on GitHub](https://github.com/striatp/NumWorksCanvas/canvas/functions.py)
+     [functions.py on GitHub](https://github.com/striatp/NumWorksCanvas/blob/main/canvas/functions.py)
 
 4. **Add the Canvas Script:**
    - Create another new script named `canvas.py`.
    - Copy and paste the code from the following URL into the script:  
-     [canvas.py on GitHub](https://github.com/striatp/NumWorksCanvas/canvas/canvas.py)
+     [canvas.py on GitHub](https://github.com/striatp/NumWorksCanvas/blob/main/canvas/canvas.py)
 
 5. **Start Using the Canvas Package:**
    - Once everything is set up, you can now use the package in your scripts.
