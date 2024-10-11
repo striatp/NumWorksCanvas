@@ -67,6 +67,7 @@ class Canvas:
         # Initialize the canvas on the screen
         self.create_canvas()
 
+    # Method to create the canvas and display it on the screen
     def create_canvas(self):
         """Creates the canvas on the screen with the specified background color."""
         # Determine actual width and height if 'full' is specified
