@@ -7,11 +7,10 @@ from .functions import Text
 from .functions import Line
 
 __all__ = [
-  InitError,
-  Rectangle,
-  Triangle,
-  Canvas,
-  Circle,
-  Text,
-  Line
+  'Rectangle',
+  'Triangle',
+  'Canvas',
+  'Circle',
+  'Text',
+  'Line'
 ]
