@@ -207,33 +207,29 @@ class Rectangle:
         return color_map.get(color_name, (255, 255, 255))  # Default to white
 
 # Text function
-import kandinsky
-
 class Text:
-    def __init__(self, x: int, y: int, content: str, color: str or tuple = "black", background_color: str or tuple = "white"):
+    def __init__(self, x: int, y: int, content: str) -> None:
         # Initialize text attributes
         self.x = x
         self.y = y
         self.content = content
-        self.color = self.get_color_tuple(color)
-        self.background_color = self.get_color_tuple(background_color)
         self.is_drawn = False  # To track if the text is displayed
 
     def draw(self):
         """Draws the text on the screen."""
         if not self.is_drawn:
-            kandinsky.draw_string(self.content, self.x, self.y, self.color, self.background_color)
+            kandinsky.draw_string(self.content, self.x, self.y)
             self.is_drawn = True
 
     def destroy(self):
         """Clears the text by filling the area where it was drawn with the default background color."""
         if self.is_drawn:
             # Calculate the size of the text based on its length (assuming a fixed-width font)
-            text_width = len(self.content) * 10  # NumWorks uses 10x10 font size
-            text_height = 10
+            text_width = len(self.content) * 11  # NumWorks uses 10x10 font size
+            text_height = 11
 
             # Overwrite the text area with the background color
-            kandinsky.fill_rect(self.x, self.y, text_width, text_height, self.background_color)
+            kandinsky.fill_rect(self.x, self.y, text_width, text_height, color_map.get(default_bg_color))
             self.is_drawn = False
 
     @staticmethod
