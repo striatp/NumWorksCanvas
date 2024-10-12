@@ -18,7 +18,7 @@ default_bg_color = "white"
 # Initialization of the canvas
 class Canvas:
     # Initializing
-    def __init__(self, width: int or str, height: int or str, background_color: str or tuple = default_bg_color) -> None:
+    def __init__(self, width: int or str = "full", height: int or str = "full", background_color: str or tuple = default_bg_color) -> None:
         global canvas_initialized
 
         # Check if the canvas is already initialized
