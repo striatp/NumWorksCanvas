@@ -4,7 +4,7 @@ The `Canvas` class is the foundational component for creating a drawable area on
 
 ## Installation
 
-Ensure you have the `kandinsky` module available in your NumWorks calculator.
+Ensure you have the `kandinsky` module available in your environment.
 
 ## Usage Example
 
