@@ -321,8 +321,9 @@ class Line:
 
         # Checks if the canvas is initialized
         if not canvas_initialized:
-            raise InitError("The canvas is not initialized.")        """Initialize the line with two endpoints."""
-
+            raise InitError("The canvas is not initialized.")
+        
+        """Initialize the line with two endpoints."""
         # Defining attributes
         self.x1 = x1
         self.y1 = y1
