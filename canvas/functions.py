@@ -18,33 +18,13 @@ default_bg_color = "white"
 # Initialization of the canvas
 class Canvas:
     # Initializing
-    def __init__(self, width: int or str = "full", height: int or str = "full", background_color: str or tuple = default_bg_color) -> None:
+    def __init__(self, background_color: str or tuple = default_bg_color) -> None:
         global canvas_initialized
 
         # Check if the canvas is already initialized
         if canvas_initialized:
             raise InitError("The canvas is already initialized.")
         
-        # Validate width
-        if isinstance(width, str):
-            if width != "full":
-                raise ValueError("The 'width' argument must be a positive integer or the string 'full'.")
-        elif isinstance(width, int):
-            if width <= 0:
-                raise ValueError("The 'width' argument must be a positive integer.")
-        else:
-            raise TypeError("The 'width' argument must be either an integer or a string ('full').")
-
-        # Validate height (follows same structure as width validation)
-        if isinstance(height, str):
-            if height != "full":
-                raise ValueError("The 'height' argument must be a positive integer or the string 'full'.")
-        elif isinstance(height, int):
-            if height <= 0:
-                raise ValueError("The 'height' argument must be a positive integer.")
-        else:
-            raise TypeError("The 'height' argument must be either an integer or a string ('full').")
-
         # Validate background_color
         valid_colors = {"red", "green", "yellow", "blue", "brown", "black", "white", "pink", "orange", "purple", "gray"}
         
@@ -58,8 +38,6 @@ class Canvas:
             raise TypeError("The 'background_color' argument must be a string (color name) or a tuple (RGB values).")
 
         # Set canvas attributes
-        self.width = width
-        self.height = height
         self.background_color = background_color
 
         # Mark canvas as initialized
@@ -71,11 +49,6 @@ class Canvas:
     # Method to create the canvas and display it on the screen
     def create_canvas(self) -> None:
         """Creates the canvas on the screen with the specified background color."""
-        # Determine actual width and height if 'full' is specified
-        if self.width == "full":
-            self.width = 320
-        if self.height == "full":
-            self.height = 222
 
         # Fill the canvas with the background color
         if isinstance(self.background_color, str):
@@ -83,7 +56,7 @@ class Canvas:
         else:
             color = self.background_color
 
-        kandinsky.fill_rect(self.width, self.height, self.background_color)
+        kandinsky.fill_rect(0, 0, 320, 222, self.background_color)
 
     @staticmethod
     def get_color_tuple(color_name: str) -> tuple:
