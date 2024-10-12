@@ -6,6 +6,7 @@ from .functions import Circle
 from .functions import Text
 from .functions import Line
 
+# Public API : InitError is not raisable by users
 __all__ = [
   'Rectangle',
   'Triangle',
