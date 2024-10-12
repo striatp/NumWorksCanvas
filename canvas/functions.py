@@ -83,7 +83,7 @@ class Circle:
 
         # Checks if the canvas is initialized
         if not canvas_initialized:
-            raise InitError("The canvas is already initialized.")
+            raise InitError("The canvas is not initialized.")
         
         """Initialize the circle with center, radius, and color."""
         # Validate position and radius
@@ -155,3 +155,53 @@ class Circle:
             "gray": (128, 128, 128)
         }
         return color_map.get(color_name, (255, 255, 255))  # Default to white if color not found
+
+# Rectangle function
+class Rectangle:
+    def __init__(self, x: int, y: int, width: int, height: int, color: str or tuple):
+        global canvas_initialized
+
+        # Checks if the canvas is initialized
+        if not canvas_initialized:
+            raise InitError("The canvas is not initialized.")
+        
+        """Initialize the rectangle with width, height and color."""
+        # Initialize the rectangle's attributes
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.color = self.get_color_tuple(color)
+        self.is_drawn = False  # To keep track if the rectangle is drawn
+
+    def draw(self):
+        """Draws the rectangle on the screen."""
+        if not self.is_drawn:
+            kandinsky.fill_rect(self.x, self.y, self.width, self.height, self.color)
+            self.is_drawn = True
+
+    def destroy(self):
+        """Removes the rectangle by filling it with white (default background)."""
+        if self.is_drawn:
+            kandinsky.fill_rect(self.x, self.y, self.width, self.height, (255, 255, 255))  # Fill with white to "erase"
+            self.is_drawn = False
+
+    @staticmethod
+    def get_color_tuple(color_name: str or tuple) -> tuple:
+        """Converts a color name or tuple into an RGB tuple."""
+        if isinstance(color_name, tuple):
+            return color_name
+        color_map = {
+            "red": (255, 0, 0),
+            "green": (0, 255, 0),
+            "yellow": (255, 255, 0),
+            "blue": (0, 0, 255),
+            "brown": (165, 42, 42),
+            "black": (0, 0, 0),
+            "white": (255, 255, 255),
+            "pink": (255, 192, 203),
+            "orange": (255, 165, 0),
+            "purple": (128, 0, 128),
+            "gray": (128, 128, 128)
+        }
+        return color_map.get(color_name, (255, 255, 255))  # Default to white
