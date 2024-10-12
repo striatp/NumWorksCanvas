@@ -208,7 +208,7 @@ class Rectangle:
 
 # Text function
 class Text:
-    def __init__(self, x: int, y: int, content: str) -> None:
+    def __init__(self, x: int, y: int, content: str):
         # Initialize text attributes
         self.x = x
         self.y = y
@@ -225,33 +225,86 @@ class Text:
         """Clears the text by filling the area where it was drawn with the default background color."""
         if self.is_drawn:
             # Calculate the size of the text based on its length (assuming a fixed-width font)
-            text_width = len(self.content) * 11  # NumWorks uses 10x10 font size
-            text_height = 11
+            text_width = len(self.content) * 10  # NumWorks uses 10x10 font size
+            text_height = 10
 
-            # Overwrite the text area with the background color
-            kandinsky.fill_rect(self.x, self.y, text_width, text_height, color_map.get(default_bg_color))
+            # Overwrite the text area with the default background color (white)
+            kandinsky.fill_rect(self.x, self.y, text_width, text_height, (255, 255, 255))  # White background
             self.is_drawn = False
 
-    @staticmethod
-    def get_color_tuple(color_name: str or tuple) -> tuple:
-        """Converts a color name or tuple into an RGB tuple."""
-        if isinstance(color_name, tuple):
-            return color_name
-        color_map = {
-            "red": (255, 0, 0),
-            "green": (0, 255, 0),
-            "yellow": (255, 255, 0),
-            "blue": (0, 0, 255),
-            "brown": (165, 42, 42),
-            "black": (0, 0, 0),
-            "white": (255, 255, 255),
-            "pink": (255, 192, 203),
-            "orange": (255, 165, 0),
-            "purple": (128, 0, 128),
-            "gray": (128, 128, 128)
-        }
-        return color_map.get(color_name, (255, 255, 255))  # Default to white
+# Triangle function
+class Triangle:
+    def __init__(self, x1: int, y1: int, x2: int, y2: int, x3: int, y3: int):
+        # Initialize triangle vertices
+        self.vertices = [(x1, y1), (x2, y2), (x3, y3)]
+        self.is_drawn = False  # To track if the triangle is displayed
 
-# Example of usage
-text = Text(10, 20, "Hello World", "blue", "yellow")
-text.draw()    # Draws "Hello World" in blue
+    def draw(self):
+        """Draws the triangle on the screen using kandinsky."""
+        if not self.is_drawn:
+            self.fill_triangle(self.vertices[0], self.vertices[1], self.vertices[2])
+            self.is_drawn = True
+
+    def fill_triangle(self, v1, v2, v3):
+        """Fills the triangle defined by vertices v1, v2, v3."""
+        # Get the vertices
+        x1, y1 = v1
+        x2, y2 = v2
+        x3, y3 = v3
+        
+        # Sort the vertices by y-coordinate
+        vertices = sorted([v1, v2, v3], key=lambda v: v[1])
+        (x1, y1), (x2, y2), (x3, y3) = vertices
+
+        # Draw the triangle by filling pixels
+        for y in range(y1, y3 + 1):
+            if y < y2:
+                # Calculate the x coordinates for the left and right edges
+                x_left = self.interpolate(x1, y1, x2, y2, y)
+                x_right = self.interpolate(x1, y1, x3, y3, y)
+            else:
+                # For the bottom part of the triangle
+                x_left = self.interpolate(x2, y2, x3, y3, y)
+                x_right = self.interpolate(x1, y1, x3, y3, y)
+                
+            # Fill the line between left and right
+            for x in range(int(x_left), int(x_right) + 1):
+                kandinsky.set_pixel(x, y, (0, 0, 0))  # Fill with black
+
+    def interpolate(self, x1, y1, x2, y2, y):
+        """Interpolates x-coordinate based on the y-coordinate between two points."""
+        if y2 == y1:
+            return x1
+        return x1 + (x2 - x1) * (y - y1) // (y2 - y1)
+
+    def destroy(self):
+        """Clears the triangle by filling the area where it was drawn with the default background color."""
+        if self.is_drawn:
+            # Overwrite the triangle area with the default background color (white)
+            self.fill_triangle(self.vertices[0], self.vertices[1], self.vertices[2], fill=False)
+            self.is_drawn = False
+
+    def fill_triangle(self, v1, v2, v3, fill=True):
+        """Fills the triangle defined by vertices v1, v2, v3, with the background color if fill is False."""
+        # Get the vertices
+        x1, y1 = v1
+        x2, y2 = v2
+        x3, y3 = v3
+        
+        # Sort the vertices by y-coordinate
+        vertices = sorted([v1, v2, v3], key=lambda v: v[1])
+        (x1, y1), (x2, y2), (x3, y3) = vertices
+
+        # Draw the triangle by filling pixels
+        for y in range(y1, y3 + 1):
+            if y < y2:
+                x_left = self.interpolate(x1, y1, x2, y2, y)
+                x_right = self.interpolate(x1, y1, x3, y3, y)
+            else:
+                x_left = self.interpolate(x2, y2, x3, y3, y)
+                x_right = self.interpolate(x1, y1, x3, y3, y)
+
+            for x in range(int(x_left), int(x_right) + 1):
+                # Fill with black if filling, else fill with the default background color
+                color = (255, 255, 255) if not fill else (0, 0, 0)
+                kandinsky.set_pixel(x, y, color) 
