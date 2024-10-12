@@ -1,6 +1,10 @@
-# Draw a circle with center at (160, 111), radius 50, and red color
-circle = Circle(x=160, y=111, radius=50, color="red")
-circle.draw()  # Draw the circle on the canvas
+from canvas import Circle
 
-# Destroy the circle
+# Create a circle at (100, 100) with a radius of 50 and red color
+circle = Circle(100, 100, 50, "red")
+
+# Draw the circle on the canvas
+circle.draw()
+
+# Remove the circle from the canvas
 circle.destroy()
