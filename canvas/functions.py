@@ -105,7 +105,13 @@ class Canvas:
 
 # Circle function
 class Circle:
-    def __init__(self, x, y, radius, color):
+    def __init__(self, x: int, y: int, radius: int, color: str or tuple) -> None:
+        global canvas_initialized
+
+        # Checks if the canvas is initialized
+        if not canvas_initialized:
+            raise InitError("The canvas is already initialized.")
+        
         """Initialize the circle with center, radius, and color."""
         # Validate position and radius
         if not isinstance(x, int) or not isinstance(y, int):
@@ -131,7 +137,7 @@ class Circle:
         self.color = self.get_color_tuple(color) if isinstance(color, str) else color
         self.is_drawn = False  # Track if the circle is drawn
 
-    def draw(self):
+    def draw(self) -> None:
         """Draw the circle on the canvas."""
         if self.is_drawn:
             raise InitError("The circle is already drawn.")
@@ -145,7 +151,7 @@ class Circle:
 
         self.is_drawn = True
 
-    def destroy(self):
+    def destroy(self) -> None:
         """Remove the circle by filling the area with the background color."""
         if not self.is_drawn:
             raise InitError("The circle is not drawn yet.")
@@ -160,7 +166,7 @@ class Circle:
         self.is_drawn = False
 
     @staticmethod
-    def get_color_tuple(color_name):
+    def get_color_tuple(color_name) -> tuple:
         """Return the RGB tuple for a color name."""
         color_map = {
             "red": (255, 0, 0),
