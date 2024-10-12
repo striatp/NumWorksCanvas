@@ -1,6 +1,10 @@
-# Draw a rectangle at (50, 50) with width 100, height 50, and green color
-rectangle = Rectangle(x=50, y=50, width=100, height=50, color="green")
-rectangle.draw()  # Draw the rectangle on the canvas
+from canvas import Rectangle
 
-# Destroy the rectangle
+# Create a rectangle at (50, 50) with a width of 100, height of 50, and blue color
+rectangle = Rectangle(50, 50, 100, 50, "blue")
+
+# Draw the rectangle on the canvas
+rectangle.draw()
+
+# Remove the rectangle from the canvas
 rectangle.destroy()
