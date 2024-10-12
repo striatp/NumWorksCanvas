@@ -1,6 +1,10 @@
-# Draw a triangle with vertices at (30, 30), (80, 30), and (55, 80)
-triangle = Triangle(x1=30, y1=30, x2=80, y2=30, x3=55, y3=80)
-triangle.draw()  # Draw the triangle on the canvas
+from canvas import Triangle
 
-# Destroy the triangle
+# Create a triangle with vertices at (10, 10), (50, 50), and (100, 10)
+triangle = Triangle(10, 10, 50, 50, 100, 10)
+
+# Draw the triangle on the canvas
+triangle.draw()
+
+# Remove the triangle from the canvas
 triangle.destroy()
