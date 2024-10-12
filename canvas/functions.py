@@ -6,11 +6,6 @@ class InitError(Exception):
     """Exception raised when attempting to draw on an uninitialized canvas."""
     pass
 
-# Missing argument error
-class MissingArgumentError(Exception):
-    """Exception raised for missing or invalid arguments."""
-    pass
-
 # Variables used to track the canvas' data
 canvas_initialized = False
 default_bg_color = "white"
