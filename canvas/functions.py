@@ -308,3 +308,52 @@ class Triangle:
                 # Fill with black if filling, else fill with the default background color
                 color = (255, 255, 255) if not fill else (0, 0, 0)
                 kandinsky.set_pixel(x, y, color) 
+
+# Line function
+class Line:
+    def __init__(self, x1: int, y1: int, x2: int, y2: int) -> None:
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+        self.y2 = y2
+        self.is_drawn = False
+
+    def draw(self):
+        if not self.is_drawn:
+            self.bresenham_line(self.x1, self.y1, self.x2, self.y2, (0, 0, 0))  # Black color
+            self.is_drawn = True
+
+    def destroy(self):
+        if self.is_drawn:
+            self.bresenham_line(self.x1, self.y1, self.x2, self.y2, (255, 255, 255))  # Fill with white
+            self.is_drawn = False
+
+    def bresenham_line(self, x1, y1, x2, y2, color):
+        dx = x2 - x1
+        dy = y2 - y1
+        steep = abs(dy) > abs(dx)
+        if steep:
+            x1, y1 = y1, x1
+            x2, y2 = y2, x2
+            dx = x2 - x1
+            dy = y2 - y1
+
+        if x1 > x2:
+            x1, x2 = x2, x1
+            y1, y2 = y2, y1
+            dx = x2 - x1
+            dy = y2 - y1
+
+        d = 2 * dy - dx
+        y = y1
+
+        for x in range(x1, x2 + 1):
+            if steep:
+                kandinsky.set_pixel(y, x, color)
+            else:
+                kandinsky.set_pixel(x, y, color)
+
+            if d > 0:
+                y += 1
+                d -= 2 * dx
+            d += 2 * dy
