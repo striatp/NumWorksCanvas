@@ -208,7 +208,7 @@ class Rectangle:
 
 # Text function
 class Text:
-    def __init__(self, x: int, y: int, content: str):
+    def __init__(self, x: int, y: int, content: str) -> None:
         # Initialize text attributes
         self.x = x
         self.y = y
@@ -226,7 +226,7 @@ class Text:
         if self.is_drawn:
             # Calculate the size of the text based on its length (assuming a fixed-width font)
             text_width = len(self.content) * 10  # NumWorks uses 10x10 font size
-            text_height = 10
+            text_height = 15
 
             # Overwrite the text area with the default background color (white)
             kandinsky.fill_rect(self.x, self.y, text_width, text_height, (255, 255, 255))  # White background
