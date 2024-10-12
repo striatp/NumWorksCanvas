@@ -1,6 +1,10 @@
-# Draw a line from (10, 10) to (200, 200)
-line = Line(x1=10, y1=10, x2=200, y2=200)
-line.draw()  # Draw the line on the canvas
+from canvas import Line
 
-# Destroy the line
+# Create a line from (10, 10) to (100, 100)
+line = Line(10, 10, 100, 100)
+
+# Draw the line on the canvas
+line.draw()
+
+# Remove the line from the canvas
 line.destroy()
