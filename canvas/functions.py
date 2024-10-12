@@ -205,3 +205,57 @@ class Rectangle:
             "gray": (128, 128, 128)
         }
         return color_map.get(color_name, (255, 255, 255))  # Default to white
+
+# Text function
+import kandinsky
+
+class Text:
+    def __init__(self, x: int, y: int, content: str, color: str or tuple = "black", background_color: str or tuple = "white"):
+        # Initialize text attributes
+        self.x = x
+        self.y = y
+        self.content = content
+        self.color = self.get_color_tuple(color)
+        self.background_color = self.get_color_tuple(background_color)
+        self.is_drawn = False  # To track if the text is displayed
+
+    def draw(self):
+        """Draws the text on the screen."""
+        if not self.is_drawn:
+            kandinsky.draw_string(self.content, self.x, self.y, self.color, self.background_color)
+            self.is_drawn = True
+
+    def destroy(self):
+        """Clears the text by filling the area where it was drawn with the default background color."""
+        if self.is_drawn:
+            # Calculate the size of the text based on its length (assuming a fixed-width font)
+            text_width = len(self.content) * 10  # NumWorks uses 10x10 font size
+            text_height = 10
+
+            # Overwrite the text area with the background color
+            kandinsky.fill_rect(self.x, self.y, text_width, text_height, self.background_color)
+            self.is_drawn = False
+
+    @staticmethod
+    def get_color_tuple(color_name: str or tuple) -> tuple:
+        """Converts a color name or tuple into an RGB tuple."""
+        if isinstance(color_name, tuple):
+            return color_name
+        color_map = {
+            "red": (255, 0, 0),
+            "green": (0, 255, 0),
+            "yellow": (255, 255, 0),
+            "blue": (0, 0, 255),
+            "brown": (165, 42, 42),
+            "black": (0, 0, 0),
+            "white": (255, 255, 255),
+            "pink": (255, 192, 203),
+            "orange": (255, 165, 0),
+            "purple": (128, 0, 128),
+            "gray": (128, 128, 128)
+        }
+        return color_map.get(color_name, (255, 255, 255))  # Default to white
+
+# Example of usage
+text = Text(10, 20, "Hello World", "blue", "yellow")
+text.draw()    # Draws "Hello World" in blue
