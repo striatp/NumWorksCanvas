@@ -323,18 +323,21 @@ class Line:
         self.y2 = y2
         self.is_drawn = False  # Track if the line is currently drawn
 
+    # Method to append the line on the screen
     def draw(self) -> None:
         """Draws the line on the screen using Bresenham's line algorithm."""
         if not self.is_drawn:
             self.bresenham_line(self.x1, self.y1, self.x2, self.y2, (0, 0, 0))  # Black color
             self.is_drawn = True
 
+    # Method to destroy the line
     def destroy(self) -> None:
         """Clears the line by filling the area with the default background color."""
         if self.is_drawn:
             self.bresenham_line(self.x1, self.y1, self.x2, self.y2, (255, 255, 255))  # Fill with white
             self.is_drawn = False
 
+    # Use Bresenham's line algorithm
     def bresenham_line(self, x1, y1, x2, y2, color):
         """Implements Bresenham's line algorithm to draw a line pixel by pixel."""
         dx = x2 - x1  # Difference in x coordinates
