@@ -49,7 +49,7 @@ class Canvas:
         
         if isinstance(background_color, str):
             if background_color not in valid_colors:
-                raise ValueError(f"The 'background_color' must be a valid color.")
+                raise ValueError("The 'background_color' must be a valid color.")
         elif isinstance(background_color, tuple):
             if len(background_color) != 3 or not all(isinstance(c, int) and 0 <= c <= 255 for c in background_color):
                 raise ValueError("The 'background_color' tuple must contain three integers between 0 and 255 (e.g., (255, 255, 255)).")
