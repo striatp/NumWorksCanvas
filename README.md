@@ -29,5 +29,7 @@ This package allows you to create canvas-based graphics on your NumWorks calcula
 
 Enjoy creating custom graphics with NumWorks!
 
+⚠️ If you are encountering the 2047 characters limit issue on [NumWorks](https://my.numworks.com/python/) website, feel free to copy and paste the code piece by piece.
+
 ## License
 [MIT](LICENSE)
