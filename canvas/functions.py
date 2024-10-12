@@ -68,7 +68,7 @@ class Canvas:
         self.create_canvas()
 
     # Method to create the canvas and display it on the screen
-    def create_canvas(self):
+    def create_canvas(self) -> None:
         """Creates the canvas on the screen with the specified background color."""
         # Determine actual width and height if 'full' is specified
         if self.width == "full":
@@ -105,5 +105,38 @@ class Canvas:
         return color_map.get(color_name, (255, 255, 255))  # Default to white
 
 # Rectangle function
-class Rectangle():
-    def __init__(self, x: int, y: int, width: int or str, height: int or str
+class Rectangle:
+    """Initialize the rectangle with position, dimensions, and color."""
+    def __init__(self, x: int, y: int, width: int or str, height: int or str): -> None:
+
+        # Checks if the canvas is initialized
+        if not canvas_initialized:
+            raise InitError("The canvas must be initialized.")
+
+        # Validate x position
+        if not isinstance(x, int):
+            raise ValueError("The 'x' argument must be an integer.")
+
+        # Validate y position (follows the same structure as x position validation)
+        if not isinstance(y, int):
+            raise ValueError("The 'y' argument must be an integer.")
+
+        # Validate width
+        if isinstance(width, str):
+            if width != "full":
+                raise ValueError("The 'width' argument must be a positive integer or the string 'full'.")
+        elif isinstance(width, int):
+            if width <= 0:
+                raise ValueError("The 'width' argument must be a positive integer.")
+        else:
+            raise TypeError("The 'width' argument must be either an integer or a string ('full').")
+
+        # Validate height (follows same structure as width validation)
+        if isinstance(height, str):
+            if height != "full":
+                raise ValueError("The 'height' argument must be a positive integer or the string 'full'.")
+        elif isinstance(height, int):
+            if height <= 0:
+                raise ValueError("The 'height' argument must be a positive integer.")
+        else:
+            raise TypeError("The 'height' argument must be either an integer or a string ('full').")
