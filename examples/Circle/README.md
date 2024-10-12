@@ -4,7 +4,7 @@ The `Circle` class allows you to create and manipulate circles on the canvas. Yo
 
 ## Installation
 
-Ensure you have the `kandinsky` module available in your NumWorks calculator.
+Ensure you have the `kandinsky` module available in your environment.
 
 ## Usage Example
 
