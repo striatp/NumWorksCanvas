@@ -80,8 +80,9 @@ class Canvas:
         }
         return color_map.get(color_name, (255, 255, 255))  # Default to white
 
-# Circle function
+# Circle function : needs to be reviewed
 class Circle:
+    # Initializing
     def __init__(self, x: int, y: int, radius: int, color: str or tuple) -> None:
         global canvas_initialized
 
@@ -114,6 +115,7 @@ class Circle:
         self.color = self.get_color_tuple(color) if isinstance(color, str) else color
         self.is_drawn = False  # Track if the circle is drawn
 
+    # Method to append the circle on the screen
     def draw(self) -> None:
         """Draw the circle on the canvas."""
         if self.is_drawn:
@@ -128,6 +130,7 @@ class Circle:
 
         self.is_drawn = True
 
+    # Method to delete the circle
     def destroy(self) -> None:
         """Remove the circle by filling the area with the background color."""
         if not self.is_drawn:
@@ -160,9 +163,10 @@ class Circle:
         }
         return color_map.get(color_name, (255, 255, 255))  # Default to white if color not found
 
-# Rectangle function
+# Rectangle function : needs to be reviewed
 class Rectangle:
-    def __init__(self, x: int, y: int, width: int, height: int, color: str or tuple):
+    # Initializing
+    def __init__(self, x: int, y: int, width: int, height: int, color: str or tuple) -> None:
         global canvas_initialized
 
         # Checks if the canvas is initialized
@@ -178,13 +182,15 @@ class Rectangle:
         self.color = self.get_color_tuple(color)
         self.is_drawn = False  # To keep track if the rectangle is drawn
 
-    def draw(self):
+    # Method to append the rectangle on the screen
+    def draw(self) -> None:
         """Draws the rectangle on the screen."""
         if not self.is_drawn:
             kandinsky.fill_rect(self.x, self.y, self.width, self.height, self.color)
             self.is_drawn = True
-            
-    def destroy(self):
+
+    # Method to delete the rectangle
+    def destroy(self) -> None:
         """Removes the rectangle by filling it with white (default background)."""
         if self.is_drawn:
             kandinsky.fill_rect(self.x, self.y, self.width, self.height, (255, 255, 255))  # Fill with white to "erase"
@@ -210,22 +216,31 @@ class Rectangle:
         }
         return color_map.get(color_name, (255, 255, 255))  # Default to white
 
-# Text function
+# Text function : needs to be reviewed
 class Text:
+    # Initializing
     def __init__(self, x: int, y: int, content: str) -> None:
+        global canvas_initialized
+
+        # Checks if the canvas is initialized
+        if not canvas_initialized:
+            raise InitError("The canvas is not initialized.")
+        
         # Initialize text attributes
         self.x = x
         self.y = y
         self.content = content
         self.is_drawn = False  # To track if the text is displayed
 
-    def draw(self):
+    # Method to append the text on the screen
+    def draw(self) -> None:
         """Draws the text on the screen."""
         if not self.is_drawn:
             kandinsky.draw_string(self.content, self.x, self.y)
             self.is_drawn = True
 
-    def destroy(self):
+    # Method to delete the text
+    def destroy(self) -> None:
         """Clears the text by filling the area where it was drawn with the default background color."""
         if self.is_drawn:
             # Calculate the size of the text based on its length (assuming a fixed-width font)
@@ -298,7 +313,7 @@ class Triangle:
             self.fill_triangle(self.vertices[0], self.vertices[1], self.vertices[2], fill=False)  # Clear the triangle
             self.is_drawn = False  # Mark the triangle as not drawn
 
-# Line Class : checked
+# Line Class : could be reviewed
 class Line:
     # Initializing
     def __init__(self, x1: int, y1: int, x2: int, y2: int) -> None:
