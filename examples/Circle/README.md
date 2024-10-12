@@ -1,8 +1,3 @@
-
----
-
-### 2. `README.md` for `Circle`
-
 # Circle
 
 The `Circle` class allows you to create and manipulate circles on the canvas. You can draw circles at specified coordinates with a defined radius and color.
