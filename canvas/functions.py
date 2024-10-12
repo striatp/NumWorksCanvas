@@ -20,6 +20,7 @@ class Canvas:
     # Initializing
     def __init__(self, background_color: str or tuple = default_bg_color) -> None:
         global canvas_initialized
+        global default_bg_color
 
         # Check if the canvas is already initialized
         if canvas_initialized:
@@ -36,7 +37,10 @@ class Canvas:
                 raise ValueError("The 'background_color' tuple must contain three integers between 0 and 255 (e.g., (255, 255, 255)).")
         else:
             raise TypeError("The 'background_color' argument must be a string (color name) or a tuple (RGB values).")
-
+        
+        # Set the default background color to the given background color
+        default_bg_color = background_color
+        
         # Set canvas attributes
         self.background_color = background_color
 
