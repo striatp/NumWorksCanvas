@@ -313,51 +313,61 @@ class Triangle:
                 color = (255, 255, 255) if not fill else (0, 0, 0)
                 kandinsky.set_pixel(x, y, color) 
 
-# Line function
+# Line Class : checked
 class Line:
     def __init__(self, x1: int, y1: int, x2: int, y2: int) -> None:
+        """Initialize the line with two endpoints."""
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
         self.y2 = y2
-        self.is_drawn = False
+        self.is_drawn = False  # Track if the line is currently drawn
 
-    def draw(self):
+    def draw(self) -> None:
+        """Draws the line on the screen using Bresenham's line algorithm."""
         if not self.is_drawn:
             self.bresenham_line(self.x1, self.y1, self.x2, self.y2, (0, 0, 0))  # Black color
             self.is_drawn = True
 
-    def destroy(self):
+    def destroy(self) -> None:
+        """Clears the line by filling the area with the default background color."""
         if self.is_drawn:
             self.bresenham_line(self.x1, self.y1, self.x2, self.y2, (255, 255, 255))  # Fill with white
             self.is_drawn = False
 
     def bresenham_line(self, x1, y1, x2, y2, color):
-        dx = x2 - x1
-        dy = y2 - y1
-        steep = abs(dy) > abs(dx)
+        """Implements Bresenham's line algorithm to draw a line pixel by pixel."""
+        dx = x2 - x1  # Difference in x coordinates
+        dy = y2 - y1  # Difference in y coordinates
+        steep = abs(dy) > abs(dx)  # Check if the line is steep
+
+        # Swap coordinates if the line is steep
         if steep:
             x1, y1 = y1, x1
             x2, y2 = y2, x2
             dx = x2 - x1
             dy = y2 - y1
 
+        # Swap points if x1 is greater than x2 to ensure we draw left to right
         if x1 > x2:
             x1, x2 = x2, x1
             y1, y2 = y2, y1
             dx = x2 - x1
             dy = y2 - y1
 
-        d = 2 * dy - dx
-        y = y1
+        d = 2 * dy - dx  # Decision variable to determine the next point
+        y = y1  # Initialize y to the starting y-coordinate
 
+        # Loop through each x coordinate from x1 to x2
         for x in range(x1, x2 + 1):
+            # Plot the pixel depending on whether the line is steep
             if steep:
                 kandinsky.set_pixel(y, x, color)
             else:
                 kandinsky.set_pixel(x, y, color)
 
+            # Update the decision variable
             if d > 0:
-                y += 1
-                d -= 2 * dx
-            d += 2 * dy
+                y += 1  # Move up if the decision variable is positive
+                d -= 2 * dx  # Adjust decision variable
+            d += 2 * dy  # Increment decision variable
