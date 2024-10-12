@@ -236,10 +236,10 @@ class Text:
             kandinsky.fill_rect(self.x, self.y, text_width, text_height, (255, 255, 255))  # White background
             self.is_drawn = False
 
-# Triangle Class
+# Triangle function : checked
 class Triangle:
     # Initializing
-    def __init__(self, x1: int, y1: int, x2: int, y2: int, x3: int, y3: int):
+    def __init__(self, x1: int, y1: int, x2: int, y2: int, x3: int, y3: int) -> None:
         global canvas_initialized
 
         # Checks if the canvas is initialized
@@ -251,14 +251,14 @@ class Triangle:
         self.is_drawn = False  # To track if the triangle is displayed
 
     # Method to append the triangle on the screen
-    def draw(self):
+    def draw(self) -> None:
         """Draws the triangle on the screen using kandinsky."""
         if not self.is_drawn:
             self.fill_triangle(self.vertices[0], self.vertices[1], self.vertices[2])  # Fill the triangle
             self.is_drawn = True  # Mark the triangle as drawn
 
     # Method to fill the triangle
-    def fill_triangle(self, v1, v2, v3):
+    def fill_triangle(self, v1, v2, v3) -> None:
         """Fills the triangle defined by vertices v1, v2, v3."""
         # Get the vertices
         x1, y1 = v1
@@ -291,7 +291,7 @@ class Triangle:
         return x1 + (x2 - x1) * (y - y1) // (y2 - y1)  # Linear interpolation formula
 
     # Method to delete the triangle from the screen
-    def destroy(self):
+    def destroy(self) -> None:
         """Clears the triangle by filling the area where it was drawn with the default background color."""
         if self.is_drawn:
             # Overwrite the triangle area with the default background color (white)
@@ -302,7 +302,13 @@ class Triangle:
 class Line:
     # Initializing
     def __init__(self, x1: int, y1: int, x2: int, y2: int) -> None:
-        """Initialize the line with two endpoints."""
+        global canvas_initialized
+
+        # Checks if the canvas is initialized
+        if not canvas_initialized:
+            raise InitError("The canvas is not initialized.")        """Initialize the line with two endpoints."""
+
+        # Defining attributes
         self.x1 = x1
         self.y1 = y1
         self.x2 = x2
@@ -324,7 +330,7 @@ class Line:
             self.is_drawn = False
 
     # Use Bresenham's line algorithm
-    def bresenham_line(self, x1, y1, x2, y2, color):
+    def bresenham_line(self, x1, y1, x2, y2, color) -> None:
         """Implements Bresenham's line algorithm to draw a line pixel by pixel."""
         dx = x2 - x1  # Difference in x coordinates
         dy = y2 - y1  # Difference in y coordinates
