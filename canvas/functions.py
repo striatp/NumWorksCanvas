@@ -183,7 +183,7 @@ class Rectangle:
         if not self.is_drawn:
             kandinsky.fill_rect(self.x, self.y, self.width, self.height, self.color)
             self.is_drawn = True
-
+            
     def destroy(self):
         """Removes the rectangle by filling it with white (default background)."""
         if self.is_drawn:
@@ -238,6 +238,7 @@ class Text:
 
 # Triangle Class
 class Triangle:
+    # Initializing
     def __init__(self, x1: int, y1: int, x2: int, y2: int, x3: int, y3: int):
         global canvas_initialized
 
@@ -249,12 +250,14 @@ class Triangle:
         self.vertices = [(x1, y1), (x2, y2), (x3, y3)]  # Store vertices as tuples
         self.is_drawn = False  # To track if the triangle is displayed
 
+    # Method to append the triangle on the screen
     def draw(self):
         """Draws the triangle on the screen using kandinsky."""
         if not self.is_drawn:
             self.fill_triangle(self.vertices[0], self.vertices[1], self.vertices[2])  # Fill the triangle
             self.is_drawn = True  # Mark the triangle as drawn
 
+    # Method to fill the triangle
     def fill_triangle(self, v1, v2, v3):
         """Fills the triangle defined by vertices v1, v2, v3."""
         # Get the vertices
@@ -280,12 +283,14 @@ class Triangle:
             for x in range(int(x_left), int(x_right) + 1):
                 kandinsky.set_pixel(x, y, (0, 0, 0))  # Fill with black color
 
+    # Method to interpolate the triangle
     def interpolate(self, x1, y1, x2, y2, y):
         """Interpolates x-coordinate based on the y-coordinate between two points."""
         if y2 == y1:
             return x1  # Prevent division by zero
         return x1 + (x2 - x1) * (y - y1) // (y2 - y1)  # Linear interpolation formula
 
+    # Method to delete the triangle from the screen
     def destroy(self):
         """Clears the triangle by filling the area where it was drawn with the default background color."""
         if self.is_drawn:
@@ -293,35 +298,9 @@ class Triangle:
             self.fill_triangle(self.vertices[0], self.vertices[1], self.vertices[2], fill=False)  # Clear the triangle
             self.is_drawn = False  # Mark the triangle as not drawn
 
-    def fill_triangle(self, v1, v2, v3, fill=True):
-        """Fills the triangle defined by vertices v1, v2, v3, with the background color if fill is False."""
-        # Get the vertices
-        x1, y1 = v1
-        x2, y2 = v2
-        x3, y3 = v3
-        
-        # Sort the vertices by y-coordinate
-        vertices = sorted([v1, v2, v3], key=lambda v: v[1])
-        (x1, y1), (x2, y2), (x3, y3) = vertices
-
-        # Draw the triangle by filling pixels
-        for y in range(y1, y3 + 1):
-            if y < y2:
-                # For the upper part of the triangle
-                x_left = self.interpolate(x1, y1, x2, y2, y)  # Left edge
-                x_right = self.interpolate(x1, y1, x3, y3, y)  # Right edge
-            else:
-                # For the bottom part of the triangle
-                x_left = self.interpolate(x2, y2, x3, y3, y)  # Left edge
-                x_right = self.interpolate(x1, y1, x3, y3, y)  # Right edge
-
-            for x in range(int(x_left), int(x_right) + 1):
-                # Fill with white if not filling, else fill with black
-                color = (255, 255, 255) if not fill else (0, 0, 0)
-                kandinsky.set_pixel(x, y, color)  # Set the pixel color
-
 # Line Class : checked
 class Line:
+    # Initializing
     def __init__(self, x1: int, y1: int, x2: int, y2: int) -> None:
         """Initialize the line with two endpoints."""
         self.x1 = x1
