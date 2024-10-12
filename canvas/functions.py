@@ -103,3 +103,7 @@ class Canvas:
             "gray": (128, 128, 128)
         }
         return color_map.get(color_name, (255, 255, 255))  # Default to white
+
+# Rectangle function
+class Rectangle():
+    def __init__(self, x: int, y: int, width: int or str, height: int or str
